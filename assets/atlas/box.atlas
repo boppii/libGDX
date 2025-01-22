@@ -1,0 +1,7 @@
+box.png
+size:32,16
+repeat:none
+corner
+bounds:19,2,10,10
+wall
+bounds:2,7,15,5
