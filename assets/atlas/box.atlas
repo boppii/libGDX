@@ -2,6 +2,6 @@ box.png
 size:32,16
 repeat:none
 corner
-bounds:19,2,10,10
+bounds:2,2,8,8
 wall
-bounds:2,7,15,5
+bounds:12,2,2,8

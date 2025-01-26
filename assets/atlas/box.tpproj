@@ -19,13 +19,13 @@ paddingX=2
 paddingY=2
 pot=true
 mof=false
-rotation=false
+rotation=true
 stripWhitespaceX=false
 stripWhitespaceY=false
 wrapX=ClampToEdge
 wrapY=ClampToEdge
 premultiplyAlpha=false
-grid=false
+grid=true
 square=false
 bleed=true
 limitMemory=true
@@ -34,7 +34,7 @@ prettyPrint=false
 legacyOutput=false
 
 scaleFactors=[{suffix:"",factor:1,resampling:bicubic}]
-inputFiles=[{path:assets/corner.png,type:Input,regionName:null},{path:assets/wall.png,type:Input,regionName:null}]
+inputFiles=[{path:../corner.png,type:Input,regionName:null},{path:../wall.png,type:Input,regionName:null}]
 keepInputFileExtensions=false
 
 
