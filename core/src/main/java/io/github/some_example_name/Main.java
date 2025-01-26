@@ -52,7 +52,7 @@ public class Main extends ApplicationAdapter
 		corner = new Sprite(atlas.findRegion("corner"));
 		
 		// font
-		generator = new FreeTypeFontGenerator(Gdx.files.internal("font/HasklugNerdFontPropo-Medium.otf"));
+		generator = new FreeTypeFontGenerator(Gdx.files.internal("font/HasklugNerdFontMono-Medium.otf"));
 		parameter = new FreeTypeFontGenerator.FreeTypeFontParameter(); //why is it doing this??
 		parameter.size = 12; font = generator.generateFont(parameter); // font size 12 pixels
 		
@@ -67,9 +67,11 @@ public class Main extends ApplicationAdapter
 		//resize(WorldWH[0],WorldWH[1]);
 		
 		//boxWH
-		int[] boxWH = new int[]{159, 37};
-		//boxPos
-		int[] boxPos = new int[]{360, 115};
+		int[] boxWH = new int[]{300, 10};
+		
+		//boxPos                > 7,20 < dont go lower than these values!!!,
+		int[] boxPos = new int[]{7, 20};//it draws the leftmost part of the top line at these values.
+										//going lower will make part or all of the box be off-screen.
 		
 		testbuffer.begin();
 		batch.begin();
@@ -138,7 +140,9 @@ public class Main extends ApplicationAdapter
 	
 	public void makebox(int[] boxWH, int[] boxPos)
 	{
-		//It's done. It's garbage but it works
+		//It's done. It's garbage but it works. Nobody ask me what numbers are actually being used here
+		//because I dont know myself. All I can tell you is that "wall.getX / wall.getX" is giving a 1
+		//as the result. This will only ever work for PoT sprites BTW... Maybe, I haven't tested that yet.
 		
 		
 		int boxPosX = boxPos[0];
@@ -157,16 +161,19 @@ public class Main extends ApplicationAdapter
 		
 		
 		
+		
+		
 		for (int i = 0; i < boxW; i++) {
 			wall.setPosition(boxPosXtmp, boxPosYtmp);
 			wall.draw(batch);
 			boxPosXtmp++;
 		}
 		
+		
 		corner.setPosition(boxPosXtmp,boxPosYtmp);
 		corner.draw(batch);
 		
-		boxPosYtmp = (int) (boxPosYtmp - (corner.getHeight()-wall.getWidth() - (wall.getWidth() / wall.getWidth())));
+		boxPosYtmp = (int) (boxPosYtmp - (corner.getHeight() - wall.getWidth() - (wall.getWidth() / wall.getWidth())));
 		boxPosXtmp = (int) (boxPosXtmp + (wall.getWidth() + (wall.getWidth() / wall.getWidth())));//ITS ALWAYS OFF BY 1 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 		
 		wall.setRotation(90);
@@ -177,8 +184,10 @@ public class Main extends ApplicationAdapter
 			boxPosYtmp--;
 		}
 		
+		
 		boxPosYtmp = (int) (boxPosYtmp - (corner.getHeight() - wall.getWidth() - wall.getWidth()));
 		boxPosXtmp = (int) (boxPosXtmp - (wall.getWidth() + wall.getWidth() - (wall.getWidth() / wall.getWidth())));
+		
 		
 		corner.flip(false,true);
 		corner.setPosition(boxPosXtmp,boxPosYtmp);
@@ -192,8 +201,11 @@ public class Main extends ApplicationAdapter
 			boxPosXtmp--;
 			
 		}
+		
+		
 		boxPosYtmp = (int) (boxPosYtmp - (corner.getWidth() % wall.getWidth()));
 		boxPosXtmp = (int) (boxPosXtmp - (corner.getHeight() - (wall.getWidth() / wall.getWidth()) ));
+		
 		
 		corner.flip(true,false);
 		corner.setPosition(boxPosXtmp,boxPosYtmp);
@@ -202,6 +214,7 @@ public class Main extends ApplicationAdapter
 		boxPosYtmp = (int) (boxPosYtmp + (corner.getWidth() - wall.getWidth() - (wall.getHeight() / wall.getHeight())));
 		boxPosXtmp = (int) (boxPosXtmp + (corner.getWidth() / wall.getHeight() + wall.getWidth()));
 		
+		
 		wall.setRotation(270);
 		for (int i = 0; i < boxH; i++) {
 			wall.setPosition(boxPosXtmp, boxPosYtmp);
@@ -209,8 +222,10 @@ public class Main extends ApplicationAdapter
 			boxPosYtmp++;
 		}
 		
+		
 		boxPosYtmp = (int) (boxPosYtmp + (wall.getWidth() + wall.getWidth()));
 		boxPosXtmp = (int) (boxPosXtmp - (wall.getWidth() + wall.getWidth() - (wall.getWidth() / wall.getWidth())));
+		
 		
 		corner.flip(false,true);
 		corner.setPosition(boxPosXtmp,boxPosYtmp);
