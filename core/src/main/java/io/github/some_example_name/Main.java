@@ -67,16 +67,21 @@ public class Main extends ApplicationAdapter
 		//resize(WorldWH[0],WorldWH[1]);
 		
 		//boxWH
-		int[] boxWH = new int[]{300, 10};
+		int[] boxWH = new int[]{625,295};
 		
 		//boxPos                > 7,20 < dont go lower than these values!!!,
-		int[] boxPos = new int[]{7, 20};//it draws the leftmost part of the top line at these values.
+		int[] boxPos = new int[]{7,304};//it draws the leftmost part of the top line at these values.
 										//going lower will make part or all of the box be off-screen.
-		
+		int[] test1 = new int[]{305,150};
+		int[] test2 = new int[]{327,471};
+		int[] test3 = new int[]{305,150};
+		int[] test4 = new int[]{7,471};
 		testbuffer.begin();
 		batch.begin();
 		
 		makebox(boxWH, boxPos);
+		makebox(test1, test2);
+		makebox(test3,test4);
 		font.draw(batch, "test string", 400, 100);
 		
 		batch.end();
@@ -143,10 +148,11 @@ public class Main extends ApplicationAdapter
 		//It's done. It's garbage but it works. Nobody ask me what numbers are actually being used here
 		//because I dont know myself. All I can tell you is that "wall.getX / wall.getX" is giving a 1
 		//as the result. This will only ever work for PoT sprites BTW... Maybe, I haven't tested that yet.
+		int boxPosX = 0;
+		int boxPosY = 0;
 		
-		
-		int boxPosX = boxPos[0];
-		int boxPosY = boxPos[1];
+		boxPosX = boxPos[0];
+		boxPosY = boxPos[1];
 		
 		int boxPosXtmp = boxPosX;
 		int boxPosYtmp = boxPosY;
@@ -157,9 +163,8 @@ public class Main extends ApplicationAdapter
 		int boxWtmp = boxW;
 		int boxHtmp = boxH;//i didnt event need these? maybe keep for when i do
 		
-		
-		
-		
+		wall.setRotation(0);//setup so it works for multiple calls(clearing values)
+		corner.setFlip(false,false);
 		
 		
 		
@@ -231,6 +236,8 @@ public class Main extends ApplicationAdapter
 		corner.setPosition(boxPosXtmp,boxPosYtmp);
 		corner.draw(batch);
 		
+		corner.flip(false,false);
+		wall.setRotation(0);
 
 		
 	}
