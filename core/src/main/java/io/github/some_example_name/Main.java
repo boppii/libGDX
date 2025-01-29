@@ -1,7 +1,9 @@
 package io.github.some_example_name;
 
-import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
@@ -10,26 +12,27 @@ import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
-
 /**
- * {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms.
+ * {@link ApplicationListener} implementation shared by all platforms.
  */
-public class Main extends ApplicationAdapter
+public class Main extends Game
 {
 	
-	private SpriteBatch batch;
+	SpriteBatch batch;
 	//private Texture image;
-	private Texture buffer;
-	private FrameBuffer testbuffer;
-	private ShapeRenderer shapeRender;
-	private FitViewport viewport;
-	private Sprite wall;
-	private Sprite corner;
-	private TextureAtlas atlas;
-	private FreeTypeFontGenerator generator;
-	private FreeTypeFontGenerator.FreeTypeFontParameter parameter;
-	private BitmapFont font;
-	private int[] WorldWH = new int[]{640, 480};
+	Texture buffer;
+	FrameBuffer testbuffer;
+	ShapeRenderer shapeRender;
+	FitViewport viewport;
+	Sprite wall;
+	Sprite corner;
+	TextureAtlas atlas;
+	FreeTypeFontGenerator generator;
+	FreeTypeFontGenerator.FreeTypeFontParameter parameter;
+	BitmapFont font;
+	int[] WorldWH = new int[]{640, 480};
+	
+	
 	
 	
 	@Override
@@ -39,11 +42,11 @@ public class Main extends ApplicationAdapter
 		
 		// Framebuffer init. (pls only make max of 2 i dont want java to memory leak because i forgot to do something)
 		testbuffer = new FrameBuffer(Pixmap.Format.RGBA8888, WorldWH[0], WorldWH[1], false);
-		
+		testbuffer.getColorBufferTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
 		
 		shapeRender = new ShapeRenderer();
 		
-		//TODO figure out what viewport actually is
+		
 		viewport = new FitViewport(WorldWH[0], WorldWH[1]);
 		
 		
@@ -54,39 +57,17 @@ public class Main extends ApplicationAdapter
 		// font
 		generator = new FreeTypeFontGenerator(Gdx.files.internal("font/HasklugNerdFontMono-Medium.otf"));
 		parameter = new FreeTypeFontGenerator.FreeTypeFontParameter(); //why is it doing this??
-		parameter.size = 12; font = generator.generateFont(parameter); // font size 12 pixels
+		parameter.size = 16; font = generator.generateFont(parameter); // font size 16 pixels
 		
 		//init here so it doesnt rotate constantly
-		framebuffer();
+		//framebuffer();
+		
+		
 		
 		
 	}
 	
-	public void framebuffer()
-	{
-		//resize(WorldWH[0],WorldWH[1]);
-		
-		//boxWH
-		int[] boxWH = new int[]{625,295};
-		
-		//boxPos                > 7,20 < dont go lower than these values!!!,
-		int[] boxPos = new int[]{7,304};//it draws the leftmost part of the top line at these values.
-										//going lower will make part or all of the box be off-screen.
-		int[] test1 = new int[]{305,150};
-		int[] test2 = new int[]{327,471};
-		int[] test3 = new int[]{305,150};
-		int[] test4 = new int[]{7,471};
-		testbuffer.begin();
-		batch.begin();
-		
-		makebox(boxWH, boxPos);
-		makebox(test1, test2);
-		makebox(test3,test4);
-		font.draw(batch, "test string", 400, 100);
-		
-		batch.end();
-		testbuffer.end();
-	}
+	
 	
 	@Override
 	public void resize(int width, int height)
@@ -99,21 +80,21 @@ public class Main extends ApplicationAdapter
 	public void render()
 	{
 		
-		
+		super.render();
 		//don't touch these
 		input(); logic(); draw();
 	}
 	
 	public void input()
 	{
-	
+		if (Gdx.input.isKeyPressed(Input.Keys.Q)){
+			setScreen(new Testscreen(this));
+		}
 	}
 	
 	public void logic()
 	{
-	
 	}
-	
 	
 	public void draw()
 	{
@@ -139,6 +120,15 @@ public class Main extends ApplicationAdapter
 		font.dispose();
 		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

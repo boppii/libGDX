@@ -16,6 +16,7 @@ dependencies {
   api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinxCoroutinesVersion"
   api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
   implementation "space.earlygrey:shapedrawer:$shapedrawerVersion"
+  implementation 'com.github.julianmaster:AsciiTerminal:-SNAPSHOT'
 
 
   if(enableGraalNative == 'true') {
